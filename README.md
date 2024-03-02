@@ -143,6 +143,12 @@ Prerequisites:
 
 You can replace `pnpm` by `npm run`
 
+### A One Liner
+
+```bash
+pnpm install && pnpm build && pnpm chrome
+```
+
 ```bash
 # In root directory
 pnpm install
