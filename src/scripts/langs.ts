@@ -1,4 +1,5 @@
 export default {
+	ar: 'العربية',
 	en: 'English',
 	fr: 'Français',
 	sk: 'Slovenský',

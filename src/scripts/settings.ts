@@ -177,14 +177,14 @@ function initOptionsValues(data: Sync.Storage) {
 		b?.classList.toggle('selected', selectedLayout)
 	})
 
-	// Time & main hide elems
-	;(function initHideInputs() {
-		const { clock, date, weatherdesc, weathericon } = data.hide || {}
-		let time = !clock && !date ? 'all' : clock ? 'clock' : 'date'
-		let weather = weatherdesc && weathericon ? 'disabled' : weatherdesc ? 'desc' : weathericon ? 'icon' : 'all'
-		setInput('i_timehide', time)
-		setInput('i_weatherhide', weather)
-	})()
+		// Time & main hide elems
+		; (function initHideInputs() {
+			const { clock, date, weatherdesc, weathericon } = data.hide || {}
+			let time = !clock && !date ? 'all' : clock ? 'clock' : 'date'
+			let weather = weatherdesc && weathericon ? 'disabled' : weatherdesc ? 'desc' : weathericon ? 'icon' : 'all'
+			setInput('i_timehide', time)
+			setInput('i_weatherhide', weather)
+		})()
 
 	// Backgrounds options init
 	paramId('local_options')?.classList.toggle('shown', data.background_type === 'local')
@@ -1018,7 +1018,7 @@ function optionsTabIndex(settingsDom: HTMLElement) {
 
 function settingsDrawerBar() {
 	const drawerDragDebounce = debounce(() => {
-		;(document.getElementById('settings-footer') as HTMLDivElement).style.removeProperty('padding')
+		; (document.getElementById('settings-footer') as HTMLDivElement).style.removeProperty('padding')
 		drawerDragEvents()
 	}, 600)
 

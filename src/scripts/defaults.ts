@@ -8,9 +8,9 @@ export const FALLBACK_API = ['https://bonjourr-apis.victr.workers.dev', 'https:/
 
 export const ENVIRONNEMENT: 'PROD' | 'DEV' | 'TEST' = 'PROD'
 
-export const SYSTEM_OS = window.navigator.appVersion.includes('Macintosh')
+export const SYSTEM_OS = window.navigator.userAgent.toLowerCase().includes('mac')
 	? 'mac'
-	: window.navigator.appVersion.includes('Windows')
+	: window.navigator.userAgent.toLowerCase().includes('windows')
 	? 'windows'
 	: window.navigator.userAgent.toLowerCase().includes('Android')
 	? 'android'
@@ -49,14 +49,14 @@ const DEFAULT_LANG = (() => {
 			return code as keyof typeof langList
 		}
 	}
-	return 'en'
+	return 'ar'
 })()
 
 export const SEARCHBAR_ENGINES = <const>[
-	'google',
 	'ddg',
 	'startpage',
 	'qwant',
+	'google',
 	'yahoo',
 	'bing',
 	'brave',
@@ -76,7 +76,7 @@ export const SYNC_DEFAULT: Sync.Storage = {
 	dark: 'system',
 	favicon: '',
 	tabtitle: '',
-	greeting: '',
+	greeting: 'هلا ومرحب',
 	pagegap: 1,
 	pagewidth: 1600,
 	time: true,
@@ -122,13 +122,13 @@ export const SYNC_DEFAULT: Sync.Storage = {
 		city: undefined,
 		unit: 'metric',
 		provider: '',
-		moreinfo: 'none',
+		moreinfo: 'windy',
 		forecast: 'auto',
 		temperature: 'actual',
 		geolocation: 'approximate',
 	},
 	notes: {
-		on: false,
+		on: true,
 		width: 40,
 		opacity: 0.1,
 		align: 'left',
@@ -143,18 +143,30 @@ export const SYNC_DEFAULT: Sync.Storage = {
 		placeholder: '',
 	},
 	quotes: {
-		on: false,
+		on: true,
 		author: false,
 		type: 'classic',
 		frequency: 'day',
 		last: 1650516688,
 	},
 	font: {
-		family: '',
+		family: 'Cairo',
 		size: '14',
 		system: true,
 		weightlist: [],
 		weight: SYSTEM_OS === 'windows' ? '400' : '300',
+	},
+	bookmarks: {
+		on: true,
+		opacity: 0.1,
+		width: 40,
+		align: 'left',
+	},
+	rss: {
+		on: false,
+		opacity: 0.1,
+		width: 40,
+		align: 'left',
 	},
 	move: {
 		selection: 'single',
@@ -185,7 +197,9 @@ export const SYNC_DEFAULT: Sync.Storage = {
 
 export const LOCAL_DEFAULT: Local.Storage = {
 	userQuoteSelection: 0,
-	translations: undefined,
+	translations: {
+		lang: DEFAULT_LANG,
+	},
 	selectedId: '',
 	idsList: [],
 	quotesCache: [],

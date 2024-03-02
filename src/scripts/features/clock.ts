@@ -192,7 +192,7 @@ function clockDate(date: Date, dateformat: DateFormat) {
 	const cc = document.getElementById('date-cc') as HTMLElement
 
 	const lang = getLang()
-	const useSinograms = lang.includes('zh') || lang.includes('jp')
+	const useSinograms = lang.includes('ar') || lang.includes('zh')
 	const day = date.getDate().toString() + (useSinograms ? '日' : '')
 	const weekday = tradThis(days[date.getDay()])
 	const month = tradThis(months[date.getMonth()])

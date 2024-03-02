@@ -14,14 +14,15 @@
 		"test:api": "pnpm --filter api dev",
 		"test:init": "npx playwright install && pnpm --filter api install",
 		"test:build": "gulp buildtest",
-		"online:dev": "concurrently \"http-server release/online\" \"gulp online\""
+		"online:dev": "concurrently \"http-server release/online\" \"gulp online\"",
+		"deploy": "gulp deploy"
 	},
 	"keywords": [],
 	"author": "",
 	"license": "ISC",
 	"type": "module",
 	"devDependencies": {
-		"@playwright/test": "^1.41.2",
+		"@playwright/test": "^1.42.0",
 		"@types/chrome": "^0.0.260",
 		"@types/gulp": "^4.0.17",
 		"@types/gulp-rename": "^2.0.6",
