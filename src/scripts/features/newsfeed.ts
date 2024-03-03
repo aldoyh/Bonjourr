@@ -70,3 +70,15 @@ function displayNews(newsData: NewsItem[]) {
 // Call the function to fetch and display news
 getNews().then(displayNews);
 
+function newsfeed() {
+
+    // refresh every 5 minutes
+    setInterval(() => {
+        getNews().then(displayNews);
+    }, 5 * 60 * 1000);
+
+    // display news on load
+    getNews().then(displayNews);
+
+    
+}
