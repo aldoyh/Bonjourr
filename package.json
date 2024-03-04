@@ -51,5 +51,9 @@
 		"semi": false,
 		"singleQuote": true,
 		"printWidth": 128
+	},
+	"dependencies": {
+		"rss": "^1.2.2",
+		"rss-parser": "^3.13.0"
 	}
 }
