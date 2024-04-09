@@ -27,6 +27,8 @@ const dominterface = document.getElementById('interface') as HTMLDivElement
 const features: FeaturesToWait[] = ['clock', 'links']
 let loadtime = performance.now()
 
+import RssNews from './features/rssnews'
+
 //
 //	Startup
 //
@@ -77,6 +79,7 @@ async function startup() {
 	customCss(sync.css)
 	hideElements(sync.hide)
 	initBackground(sync, local)
+	RssNews()
 	quickLinks(sync)
 	syncNewBookmarks(sync.syncbookmarks)
 	pageControl({ width: sync.pagewidth, gap: sync.pagegap })
