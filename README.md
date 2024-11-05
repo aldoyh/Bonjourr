@@ -120,6 +120,7 @@ If you feel like we've earned it and you want to support independant open source
 -   **🇵🇹 European Portuguese translation** · [harkadya](https://harkadya.com) & [BlackSpirits](https://github.com/Blackspirits)
 -   **🇯🇵 Japanese translation** · [Kou365](https://github.com/Kou365) & 石原英里華 (IshiharaErika)
 -   **🇭🇷 Croatian translation** · Ghost
+-   **🇧🇭 🇸🇦 Arabic translation** · Hasan AlDoy [Github](https://github.com/aldoyh)
 
 ## 👨‍💻 Running Bonjourr
 
