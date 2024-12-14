@@ -115,7 +115,12 @@
 		}
 	}
 
-	aside form > div {
+	#f_addlink > div {
+		align-items: center;
+	}
+
+	#f_addlink > div > div {
+		width: 100%;
 		flex-direction: column;
 	}
 
@@ -125,7 +130,6 @@
 
 	#i_addlink-title,
 	#i_addlink-url,
-	#i_ccode,
 	#i_city {
 		width: 100%;
 	}
@@ -238,6 +242,7 @@
 
 	aside input:not(.range, .switch),
 	aside .input-btn,
+	aside form button,
 	aside select {
 		min-height: 36px;
 		border-radius: 13px;
