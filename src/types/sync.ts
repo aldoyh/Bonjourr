@@ -18,6 +18,7 @@ declare namespace Sync {
 		cssHeight?: number
 		review: number
 		announcements: 'all' | 'major' | 'off'
+		supporters: Supporters
 		reviewPopup?: number | string
 		background_blur: number
 		background_bright: number
@@ -154,5 +155,11 @@ declare namespace Sync {
 	interface MoveAlign {
 		box: string
 		text: string
+	}
+
+	type Supporters = {
+		enabled: boolean
+		closed: boolean
+		month: number
 	}
 }

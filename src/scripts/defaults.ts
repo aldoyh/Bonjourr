@@ -1,12 +1,10 @@
 import langList from './langs'
 
-export const CURRENT_VERSION = '20.1.2'
+export const CURRENT_VERSION = '20.4.1'
 
-export const MAIN_API = 'https://api.bonjourr.fr'
+export const API_DOMAIN = 'https://services.bonjourr.fr'
 
-export const FALLBACK_API = ['https://bonjourr-apis.victr.workers.dev', 'https://bonjourr-apis.victrme.workers.dev']
-
-//@ts-expect-error -> "ENV" is defined by esbuild during build step
+//@ts-expect-error: "ENV" is defined by esbuild during build step
 export const ENVIRONNEMENT: 'PROD' | 'DEV' | 'TEST' = ENV
 
 export const SYSTEM_OS =
@@ -30,18 +28,17 @@ export const PLATFORM =
 		? 'safari'
 		: 'online'
 
-export const BROWSER =
-	window.navigator.userAgent.toLowerCase().indexOf('edge') > -1
-		? 'edge'
-		: window.navigator?.userAgentData?.brands.some((b) => b.brand === 'Opera')
-		? 'opera'
-		: window.navigator?.userAgentData?.brands.some((b) => b.brand === 'Chromium')
-		? 'chrome'
-		: window.navigator.userAgent.toLowerCase().indexOf('firefox') > -1
-		? 'firefox'
-		: window.navigator.userAgent.toLowerCase().indexOf('safari') > -1
-		? 'safari'
-		: 'other'
+export const BROWSER = window.navigator?.userAgentData?.brands.some((b) => b.brand === 'Microsoft Edge')
+	? 'edge'
+	: window.navigator?.userAgentData?.brands.some((b) => b.brand === 'Opera')
+	? 'opera'
+	: window.navigator?.userAgentData?.brands.some((b) => b.brand === 'Chromium')
+	? 'chrome'
+	: window.navigator.userAgent.toLowerCase().indexOf('firefox') > -1
+	? 'firefox'
+	: window.navigator.userAgent.toLowerCase().indexOf('safari') > -1
+	? 'safari'
+	: 'other'
 
 export const EXTENSION: typeof chrome | typeof browser | undefined =
 	PLATFORM === 'online' ? undefined : PLATFORM === 'firefox' ? browser : chrome
@@ -137,7 +134,6 @@ export const SYNC_DEFAULT: Sync.Storage = {
 		time: undefined,
 	},
 	weather: {
-		ccode: undefined,
 		city: undefined,
 		unit: 'metric',
 		provider: '',
@@ -166,7 +162,7 @@ export const SYNC_DEFAULT: Sync.Storage = {
 		author: false,
 		type: DEFAULT_LANG === 'zh-CN' ? 'hitokoto' : 'classic',
 		frequency: 'day',
-		last: 1650516688,
+		last: undefined,
 	},
 	font: {
 		family: '',
@@ -174,6 +170,11 @@ export const SYNC_DEFAULT: Sync.Storage = {
 		system: true,
 		weightlist: [],
 		weight: SYSTEM_OS === 'windows' ? '400' : '300',
+	},
+	supporters: {
+		enabled: true,
+		closed: false,
+		month: new Date().getMonth() + 1,
 	},
 	move: {
 		selection: 'single',
@@ -187,11 +188,6 @@ export const LOCAL_DEFAULT: Local.Storage = {
 	selectedId: '',
 	idsList: [],
 	quotesCache: [],
-	unsplashCache: {
-		noon: [],
-		day: [],
-		evening: [],
-		night: [],
-		user: [],
-	},
+	unsplashCache: { noon: [], day: [], evening: [], night: [], user: [] },
+	syncType: PLATFORM === 'online' ? 'off' : 'browser',
 }

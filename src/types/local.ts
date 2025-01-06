@@ -10,7 +10,15 @@ declare namespace Local {
 		translations?: Translations
 		lastWeather?: Weather.Local
 		operaExplained?: true
+		gistId?: string
+		gistToken?: string
+		distantUrl?: string
+		pastebinToken?: string
+		syncStorage?: Sync.Storage
+		syncType?: SyncType
 	}
+
+	type SyncType = 'browser' | 'gist' | 'url' | 'off'
 
 	type Translations = {
 		lang: string
