@@ -1,6 +1,6 @@
 import langList from './langs'
 
-export const CURRENT_VERSION = '20.4.0'
+export const CURRENT_VERSION = '20.4.1'
 
 export const API_DOMAIN = 'https://services.bonjourr.fr'
 
@@ -171,9 +171,10 @@ export const SYNC_DEFAULT: Sync.Storage = {
 		weightlist: [],
 		weight: SYSTEM_OS === 'windows' ? '400' : '300',
 	},
-	settingssync: {
-		type: PLATFORM === 'online' ? 'off' : 'browser',
-		freq: 'manual',
+	supporters: {
+		enabled: true,
+		closed: false,
+		month: new Date().getMonth() + 1,
 	},
 	move: {
 		selection: 'single',
@@ -187,11 +188,6 @@ export const LOCAL_DEFAULT: Local.Storage = {
 	selectedId: '',
 	idsList: [],
 	quotesCache: [],
-	unsplashCache: {
-		noon: [],
-		day: [],
-		evening: [],
-		night: [],
-		user: [],
-	},
+	unsplashCache: { noon: [], day: [], evening: [], night: [], user: [] },
+	syncType: PLATFORM === 'online' ? 'off' : 'browser',
 }

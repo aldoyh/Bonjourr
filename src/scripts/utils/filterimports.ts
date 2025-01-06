@@ -18,6 +18,7 @@ export default function filterImports(current: Sync.Storage, target: Partial<Syn
 	target = newReviewData(target) // ..
 	target = quotesJsonToCSV(target) // ..
 	target = linksDataMigration(target) // 19.2
+	target = addSupporters(target) // 20.4
 
 	// Merge both settings
 
@@ -34,6 +35,7 @@ export default function filterImports(current: Sync.Storage, target: Partial<Syn
 	// current = removeLinkDuplicates(current, target) // all
 	current = toggleMoveWidgets(current, target) // all
 
+	delete current.settingssync
 	delete current.custom_every
 	delete current.custom_time
 	delete current.searchbar_newtab
@@ -45,6 +47,18 @@ export default function filterImports(current: Sync.Storage, target: Partial<Syn
 	delete current.dynamic
 
 	return current
+}
+
+function addSupporters(data: Import): Import {
+	if (data.supporters === undefined) {
+		data.supporters = {
+			enabled: true,
+			closed: false,
+			month: -1,
+		}
+	}
+
+	return data
 }
 
 function hideArrayToObject(data: Import): Import {

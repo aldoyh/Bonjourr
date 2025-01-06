@@ -12,6 +12,7 @@ import interfacePopup from './features/popup'
 import initBackground from './features/backgrounds'
 import synchronization from './features/synchronization'
 import { settingsPreload } from './settings'
+import { supportersNotifications } from './features/supporters'
 import { textShadow, favicon, tabTitle, darkmode, pageControl } from './features/others'
 
 import { SYSTEM_OS, BROWSER, PLATFORM, IS_MOBILE, CURRENT_VERSION, ENVIRONNEMENT } from './defaults'
@@ -45,6 +46,8 @@ async function startup() {
 	let { sync, local } = await storage.init()
 	const OLD_VERSION = sync?.about?.version
 
+	console.log(sync)
+
 	if (!sync || !local) {
 		errorMessage('Storage failed 😥')
 		return
@@ -58,8 +61,7 @@ async function startup() {
 		// <!> do not move
 		// <!> must delete old keys before upgrading storage
 		await storage.sync.clear()
-
-		storage.sync.set(sync)
+		await storage.sync.set(sync)
 	}
 
 	await setTranslationCache(sync.lang, local)
@@ -81,7 +83,7 @@ async function startup() {
 	hideElements(sync.hide)
 	initBackground(sync, local)
 	quickLinks(sync)
-	synchronization(sync)
+	synchronization(local)
 	pageControl({ width: sync.pagewidth, gap: sync.pagegap })
 	operaExtensionExplainer(local.operaExplained)
 
@@ -98,6 +100,12 @@ async function startup() {
 		settingsPreload()
 		userActionsEvents()
 		setPotatoComputerMode()
+
+		supportersNotifications({
+			supporters: sync.supporters,
+			review: sync.review,
+		})
+
 		interfacePopup({
 			old: OLD_VERSION,
 			new: CURRENT_VERSION,
@@ -113,10 +121,10 @@ function upgradeSyncStorage(data: Sync.Storage): Sync.Storage {
 
 function upgradeLocalStorage(data: Local.Storage): Local.Storage {
 	data.translations = undefined
-	data.lastWeather = undefined
-
 	storage.local.remove('translations')
-	storage.local.remove('lastWeather')
+
+	// data.lastWeather = undefined
+	// storage.local.remove('lastWeather')
 
 	return data
 }
@@ -198,7 +206,11 @@ function userActionsEvents() {
 			}
 			//
 			else if (keyup) {
-				document.dispatchEvent(new Event('toggle-settings'))
+				// condition to avoid conflicts with esc key on supporters modal
+				// likely to be improved
+				if (document.documentElement.dataset.supportersModal === undefined) {
+					document.dispatchEvent(new Event('toggle-settings'))
+				}
 			}
 
 			return

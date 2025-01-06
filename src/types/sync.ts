@@ -17,8 +17,8 @@ declare namespace Sync {
 		textShadow: number
 		cssHeight?: number
 		review: number
-		settingssync: SettingsSync
 		announcements: 'all' | 'major' | 'off'
+		supporters: Supporters
 		reviewPopup?: number | string
 		background_blur: number
 		background_bright: number
@@ -46,11 +46,6 @@ declare namespace Sync {
 			version: string
 		}
 		[key: string]: Links.Link | unknown
-	}
-
-	type SettingsSync = {
-		type: 'browser' | 'gist' | 'url' | 'off'
-		freq: 'newtabs' | 'start' | 'manual'
 	}
 
 	type LinkTabsOld = {
@@ -160,5 +155,11 @@ declare namespace Sync {
 	interface MoveAlign {
 		box: string
 		text: string
+	}
+
+	type Supporters = {
+		enabled: boolean
+		closed: boolean
+		month: number
 	}
 }
