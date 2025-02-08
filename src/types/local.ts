@@ -15,7 +15,6 @@ declare namespace Local {
 		distantUrl?: string
 		pastebinToken?: string
 		syncStorage?: Sync.Storage
-		syncType?: SyncType
 	}
 
 	type SyncType = 'browser' | 'gist' | 'url' | 'off'

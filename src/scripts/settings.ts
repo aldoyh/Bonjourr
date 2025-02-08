@@ -10,6 +10,7 @@ import moveElements from './features/move'
 import interfacePopup from './features/popup'
 import synchronization from './features/synchronization'
 import localBackgrounds from './features/backgrounds/local'
+import { changeGroupTitle, initGroups } from './features/links/groups'
 import { supportersNotifications } from './features/supporters'
 import { changeGroupTitle, initGroups } from './features/links/groups'
 import { backgroundFilter, updateBackgroundOption } from './features/backgrounds'
@@ -157,6 +158,13 @@ function initOptionsValues(data: Sync.Storage, local: Local.Storage) {
 	setInput('i_weight', data.font?.weight || '300')
 	setInput('i_size', data.font?.size || (IS_MOBILE ? 11 : 14))
 	setInput('i_announce', data.announcements ?? 'major')
+	setInput('i_synctype', data.settingssync?.type ?? (PLATFORM === 'online' ? 'off' : 'auto'))
+
+	setFormInput('i_collection', bonjourrCollections[unsplashCollec], data.unsplash?.collection)
+	setFormInput('i_city', local.lastWeather?.approximation?.city ?? 'Paris', data.weather.city)
+	setFormInput('i_customfont', systemfont.placeholder, data.font?.family)
+	setFormInput('i_gistsync', 'github_pat_XX000X00X', local?.gistToken)
+	setFormInput('i_urlsync', 'https://pastebin.com/raw/y7XhhiDs', local?.distantUrl)
 	setInput('i_synctype', local.syncType ?? (PLATFORM === 'online' ? 'off' : 'browser'))
 
 	setFormInput('i_collection', bonjourrCollections[unsplashCollec], data.unsplash?.collection)
@@ -237,14 +245,14 @@ function initOptionsValues(data: Sync.Storage, local: Local.Storage) {
 	paramId('b_showtitles').classList.toggle('on', data?.linktitles ?? true)
 	paramId('b_showbackgrounds').classList.toggle('on', data?.linkbackgrounds ?? true)
 
-	// Time & main hide elems
-	;(function initHideInputs() {
-		const { clock, date, weatherdesc, weathericon } = data.hide || {}
-		const time = !clock && !date ? 'all' : clock ? 'clock' : 'date'
-		const weather = weatherdesc && weathericon ? 'disabled' : weatherdesc ? 'desc' : weathericon ? 'icon' : 'all'
-		setInput('i_timehide', time)
-		setInput('i_weatherhide', weather)
-	})()
+		// Time & main hide elems
+		; (function initHideInputs() {
+			const { clock, date, weatherdesc, weathericon } = data.hide || {}
+			const time = !clock && !date ? 'all' : clock ? 'clock' : 'date'
+			const weather = weatherdesc && weathericon ? 'disabled' : weatherdesc ? 'desc' : weathericon ? 'icon' : 'all'
+			setInput('i_timehide', time)
+			setInput('i_weatherhide', weather)
+		})()
 
 	// Backgrounds options init
 	paramId('local_options')?.classList.toggle('shown', data.background_type === 'local')
@@ -713,6 +721,39 @@ function initOptionsEvents() {
 		interfacePopup(undefined, { announcements: this.value })
 	})
 
+	// Sync
+
+	paramId('i_synctype').addEventListener('change', function (this) {
+		synchronization(undefined, { type: this.value })
+	})
+
+	paramId('f_gistsync').addEventListener('submit', function (this, event) {
+		event.preventDefault()
+		synchronization(undefined, { gistToken: paramId('i_gistsync').value })
+	})
+
+	paramId('f_urlsync').addEventListener('submit', function (this, event) {
+		event.preventDefault()
+		synchronization(undefined, { url: paramId('i_urlsync').value })
+	})
+
+	paramId('b_storage-persist').onclickdown(async function () {
+		const persists = await navigator.storage.persist()
+		synchronization(undefined, { firefoxPersist: persists })
+	})
+
+	paramId('b_gistup').onclickdown(function () {
+		synchronization(undefined, { up: true })
+	})
+
+	paramId('b_gistdown').onclickdown(function () {
+		synchronization(undefined, { down: true })
+	})
+
+	paramId('b_urldown').onclickdown(function () {
+		synchronization(undefined, { down: true })
+	})
+
 	paramId('i_supporters_notif').onclickdown(function (_, target) {
 		supportersNotifications(undefined, { enabled: target.checked })
 	})
@@ -963,7 +1004,7 @@ function settingsFooter() {
 
 function settingsDrawerBar() {
 	const drawerDragDebounce = debounce(() => {
-		;(document.getElementById('settings-footer') as HTMLDivElement).style.removeProperty('padding')
+		; (document.getElementById('settings-footer') as HTMLDivElement).style.removeProperty('padding')
 		drawerDragEvents()
 	}, 600)
 

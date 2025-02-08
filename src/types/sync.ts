@@ -17,6 +17,7 @@ declare namespace Sync {
 		textShadow: number
 		cssHeight?: number
 		review: number
+		settingssync: SettingsSync
 		announcements: 'all' | 'major' | 'off'
 		supporters: Supporters
 		reviewPopup?: number | string
@@ -46,6 +47,11 @@ declare namespace Sync {
 			version: string
 		}
 		[key: string]: Links.Link | unknown
+	}
+
+	type SettingsSync = {
+		type: 'browser' | 'gist' | 'url' | 'off'
+		freq: 'newtabs' | 'start' | 'manual'
 	}
 
 	type LinkTabsOld = {
