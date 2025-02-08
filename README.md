@@ -122,6 +122,7 @@ __As a token of our appreciation, donating will also get your name [featured in 
 -   **🇵🇹 European Portuguese translation** · [harkadya](https://harkadya.com) & [BlackSpirits](https://github.com/Blackspirits)
 -   **🇯🇵 Japanese translation** · [Kou365](https://github.com/Kou365) & 石原英里華 (IshiharaErika)
 -   **🇭🇷 Croatian translation** · Ghost
+-   **🇧🇭 Arabic translation** · [Hasan AlDoy](https://github.com.aldoyh) @aldoyh
 
 ## 👨‍💻 Running Bonjourr
 
